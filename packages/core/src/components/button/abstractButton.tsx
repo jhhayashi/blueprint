@@ -26,6 +26,12 @@ export interface IButtonProps extends IActionProps {
     /** A ref handler that receives the native HTML element backing this component. */
     elementRef?: (ref: HTMLElement) => any;
 
+    /**
+     * A custom renderer for Icons
+     * @default Icon
+     */
+    iconRenderer?: JSX.Element;
+
     /** Name of the icon (the part after `pt-icon-`) to add to the button. */
     rightIconName?: IconName;
 
@@ -129,7 +135,7 @@ export abstract class AbstractButton<T> extends React.Component<React.HTMLProps<
             loading ? <Spinner className="pt-small pt-button-spinner" key="spinner" /> : undefined,
             text != null ? <span key="text">{text}</span> : undefined,
             ...children,
-            <Icon className={Classes.ALIGN_RIGHT} iconName={rightIconName} key="icon" />,
+            <this.props.iconRenderer className={Classes.ALIGN_RIGHT} iconName={rightIconName} key="icon" />,
         ];
     }
 }
